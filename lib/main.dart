@@ -25,6 +25,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> alltask = [];
+  final TextEditingController _taskController = TextEditingController();
+  bool _isAddingTask = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +36,13 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
               color: Colors.black54, borderRadius: BorderRadius.circular(50)),
           child: IconButton(
-              onPressed: null,
+              onPressed: () {
+                setState(() {
+                  _isAddingTask = !_isAddingTask;
+                });
+              },
               icon: Icon(
-                Icons.add,
+                 _isAddingTask ? Icons.add: Icons.add,
                 color: Colors.white,
                 size: 40,
               ))),
@@ -112,13 +120,51 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 20,
           ),
-
           Expanded(
             child: Center(
-              child: Text(
+              child:
+                 alltask.isEmpty ?
+               Text(
                 "No Task in list \nClick '+' to add a new task.",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 23,),
+                style: TextStyle(
+                  fontSize: 23,
+                ),
+              )
+              : ListView.builder(
+                itemCount: alltask.length,
+                itemBuilder: (context, index){
+                  return ListTile(
+                    title: Text(alltask[index]),
+                  );
+                })
+            ),
+          ),
+          Visibility(
+            visible: _isAddingTask,
+            child: Container(
+              width: 350,
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),  color: Colors.white,),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30,top: 2),
+                child: TextField(
+                  controller: _taskController,
+                  onSubmitted: (task){
+                   setState(() {
+                     alltask.add(task);
+                     _taskController.clear();
+                   });
+                  },
+                  decoration: 
+                  InputDecoration(
+                     border: InputBorder.none,
+                    hintText: "Enter Task",
+                    hintStyle: TextStyle(color: Colors.black,fontSize: 18)
+                  ),
+                
+                  
+                ),
               ),
             ),
           )
