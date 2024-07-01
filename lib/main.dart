@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/sign_up.dart';
 
 void main() {
   runApp(const ToDo_List());
@@ -197,13 +198,23 @@ class _HomePageState extends State<HomePage> {
           children: [
             IconButton(
                 onPressed: (){
-                  HomePage();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                 },
                 icon: Icon(
                   Icons.task_rounded,
                   color: Colors.white,
                   size: 35,
                 )),
+            IconButton(
+                onPressed: (){
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp()));
+                },
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 35,
+                )),
+            
           ],
         ),
       ),
