@@ -32,20 +32,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-          decoration: BoxDecoration(
-              color: Colors.black54, borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-              onPressed: () {
-                setState(() {
-                  _isAddingTask = !_isAddingTask;
-                });
-              },
-              icon: Icon(
-                 _isAddingTask ? Icons.add: Icons.add,
-                color: Colors.white,
-                size: 40,
-              ))),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Container(
+            decoration: BoxDecoration(
+                color: Colors.black54, borderRadius: BorderRadius.circular(50)),
+            child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isAddingTask = !_isAddingTask;
+                  });
+                },
+                icon: Icon(
+                   _isAddingTask ? Icons.close: Icons.add,
+                  color: Colors.white,
+                  size: 40,
+                ))),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.blueGrey.shade200,
         leading: DrawerButton(
@@ -135,7 +138,24 @@ class _HomePageState extends State<HomePage> {
                 itemCount: alltask.length,
                 itemBuilder: (context, index){
                   return ListTile(
-                    title: Text(alltask[index]),
+                    title: Container(
+                      
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(color: Colors.blueGrey.shade200,borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15,top: 4),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(alltask[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.w100),),
+                            IconButton(onPressed: (){
+                              setState(() {
+                                alltask.removeAt(index);
+                              });
+                            }, icon: Icon(Icons.delete,color: Colors.red,))
+                          ],
+                        ),
+                      )),
                   );
                 })
             ),
@@ -176,16 +196,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-                onPressed: null,
+                onPressed: (){
+                  HomePage();
+                },
                 icon: Icon(
                   Icons.task_rounded,
-                  color: Colors.white,
-                  size: 35,
-                )),
-            IconButton(
-                onPressed: null,
-                icon: Icon(
-                  Icons.person_2,
                   color: Colors.white,
                   size: 35,
                 )),
