@@ -13,7 +13,11 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+        }, icon: Icon(Icons.arrow_back_ios,color: Colors.deepPurpleAccent.shade400,)),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
